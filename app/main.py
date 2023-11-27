@@ -1,7 +1,7 @@
 import pyautogui
 import time
 
-def moverRaton():
+def mouse_mover():
     while True:
         print("Parriba..")
         pyautogui.dragRel(-100, -100, duration = 1)
@@ -13,7 +13,7 @@ def moverRaton():
 if __name__ == "__main__":
     print("Trae pa' ca' el raton...")
     try:
-        moverRaton()
+        mouse_mover()
     except:
         print("Taluego!")
     finally:
