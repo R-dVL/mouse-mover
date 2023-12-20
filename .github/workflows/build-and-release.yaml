@@ -27,13 +27,13 @@ jobs:
           GOARCH: ${{ matrix.goarch }}
           CGO_ENABLED: 1
           CC: x86_64-w64-mingw32-gcc
-        run: go build -o mouse_mover.exe main.go
+        run: go build -modfile=./app/go.mod -o mouse_mover-${{ matrix.goos }}-${{ matrix.goarch }} ./app/main.go
 
       - name: Upload binary to release
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: mouse_mover.exe
-          asset_name: mouse_mover-${{ matrix.goos }}-${{ matrix.goarch }}.exe
+          file: mouse_mover-${{ matrix.goos }}-${{ matrix.goarch }}
+          asset_name: mouse_mover-${{ matrix.goos }}-${{ matrix.goarch }}
           tag: ${{ github.ref }}
           overwrite: true
