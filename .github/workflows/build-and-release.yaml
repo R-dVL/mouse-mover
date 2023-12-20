@@ -27,7 +27,7 @@ jobs:
           GOARCH: ${{ matrix.goarch }}
           CGO_ENABLED: 1
           CC: x86_64-w64-mingw32-gcc
-        run: go build -modfile=./app/go.mod -o mouse_mover-${{ matrix.goos }}-${{ matrix.goarch }} ./app/main.go
+        run: go build -o mouse_mover-${{ matrix.goos }}-${{ matrix.goarch }} ./app/main.go
 
       - name: Upload binary to release
         uses: svenstaro/upload-release-action@v2
