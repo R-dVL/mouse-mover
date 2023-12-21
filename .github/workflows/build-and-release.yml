@@ -22,7 +22,7 @@ jobs:
         run: docker build -t builder .
 
       - name: Build Project
-        run: docker run --rm -v ./bin:/home/app/bin builder -e TAG=${{ steps.get_tag.outputs.tag }}
+        run: docker run --rm -v ./bin:/home/app/bin -e TAG=${{ steps.get_tag.outputs.tag }} builder
 
       - name: Create release
         id: create_release
