@@ -1,9 +1,0 @@
-version: '3'
-services:
-  builder:
-    container_name: mouse-mover-builder
-    build:
-      context: .
-      dockerfile: Dockerfile
-    volumes:
-      - ./bin:/home/app/bin
