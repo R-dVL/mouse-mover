@@ -22,7 +22,7 @@ jobs:
         run: docker build -t builder .
 
       - name: Build Project
-        run: docker run --rm -v ./bin:/home/app/bin builder
+        run: docker run --rm -v ./bin:/home/app/bin builder -e TAG=${{ steps.get_tag.outputs.tag }}
 
       - name: Create release
         id: create_release
@@ -30,10 +30,10 @@ jobs:
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref }}
-          release_name: ${{ github.ref }}
+          tag_name: ${{ steps.get_tag.outputs.tag }}
+          release_name: ${{ steps.get_tag.outputs.tag }}
           body: |
-            Release ${{ github.ref }}
+            Release ${{ steps.get_tag.outputs.tag }}
           draft: false
           prerelease: false
 
@@ -44,5 +44,5 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./bin/mouse_mover-${{ steps.get_tag.outputs.tag }}.windows-amd64.exe
-          asset_name: mouse_mover-${{ steps.get_tag.outputs.TAG }}.windows-amd64.exe
+          asset_name: mouse_mover-${{ steps.get_tag.outputs.tag }}.windows-amd64.exe
           asset_content_type: application/octet-stream
