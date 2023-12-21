@@ -3,9 +3,9 @@ FROM ubuntu:latest
 WORKDIR /home/app
 
 # Build params
-ENV OS = windows
-ENV ARCH = amd64
-ENV TAG = 0.0.0
+ENV OS=windows
+ENV ARCH=amd64
+ENV TAG=0.0.0
 
 RUN apt update -y && apt upgrade -y
 
