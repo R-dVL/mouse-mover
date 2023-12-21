@@ -1,4 +1,4 @@
-name: Compilar y publicar
+name: Build and release
 
 on:
   push:
