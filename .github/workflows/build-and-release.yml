@@ -14,6 +14,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Get tag
+        id: get_tag
+        run: echo ::set-output name=TAG::${GITHUB_REF#refs/tags/}
+      
       - name: Build Compiler
         run: docker build -t builder .
 
@@ -21,6 +25,7 @@ jobs:
         run: docker run --rm -v ./bin:/home/app/bin builder
 
       - name: Create release
+        id: create_release
         uses: actions/create-release@v1
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -32,7 +37,17 @@ jobs:
           draft: false
           prerelease: false
 
-      - name: Upload binaries
+      - name: Upload binaries to release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./bin/
+          asset_name: mouse_mover-${{ steps.get_tag.outputs.TAG }}.windows-amd64.exe
+          asset_content_type: application/octet-stream
+
+      - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: binaries
