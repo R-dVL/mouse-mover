@@ -1,4 +1,4 @@
-module app
+module mouse_mover
 
 go 1.18
 
