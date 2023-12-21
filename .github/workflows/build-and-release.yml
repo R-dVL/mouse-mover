@@ -14,10 +14,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Build project
-        run: |
-          docker build -t builder .
-          docker run --rm -v ./bin:/app/bin builder
+      - name: Build Compiler
+        run: docker build -t builder .
+
+      - name: Build Project
+        run: docker run --rm -v ./bin:/home/app/bin builder
 
       - name: Create release
         uses: actions/create-release@v1
