@@ -42,4 +42,4 @@ COPY . .
 RUN go mod download && go mod verify
 
 # Compile Windowsx64 binaries
-CMD ["sh", "-c", "GOOS=$OS GOARCH=$ARCH CGO_ENABLED=$CGO_ENABLED CC=$CC go build -o ./bin/mouse_mover-$TAG.$OS-${ARCH}${EXTENSION} ./cmd/mouse_mover/main.go"]
+CMD ["sh", "-c", "GOOS=$OS GOARCH=$ARCH CGO_ENABLED=$CGO_ENABLED CC=$CC go build -o ./bin/stay_active-$TAG.$OS-${ARCH}${EXTENSION} ./cmd/stay_active/main.go"]

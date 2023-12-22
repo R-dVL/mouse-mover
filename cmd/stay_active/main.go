@@ -7,7 +7,7 @@ import (
 	"github.com/go-vgo/robotgo"
 )
 
-func mouseMover() {
+func stayActive() {
 	for {
 		fmt.Println("Parriba..")
 		x1, y1 := robotgo.Location()
@@ -23,5 +23,5 @@ func mouseMover() {
 
 func main() {
 	fmt.Println("Trae pa' ca' el ratón...")
-	mouseMover()
+	stayActive()
 }

@@ -46,8 +46,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./bin/mouse_mover-${{ steps.get_tag.outputs.tag }}.windows-amd64.exe
-          asset_name: mouse_mover-${{ steps.get_tag.outputs.tag }}.windows-amd64.exe
+          asset_path: ./bin/stay_active-${{ steps.get_tag.outputs.tag }}.windows-amd64.exe
+          asset_name: stay_active-${{ steps.get_tag.outputs.tag }}.windows-amd64.exe
           asset_content_type: application/octet-stream
 
       - name: Upload Linux amd64 binaries
@@ -56,6 +56,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./bin/mouse_mover-${{ steps.get_tag.outputs.tag }}.linux-amd64.bin
-          asset_name: mouse_mover-${{ steps.get_tag.outputs.tag }}.linux-amd64.bin
+          asset_path: ./bin/stay_active-${{ steps.get_tag.outputs.tag }}.linux-amd64.bin
+          asset_name: stay_active-${{ steps.get_tag.outputs.tag }}.linux-amd64.bin
           asset_content_type: application/octet-stream
