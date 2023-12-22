@@ -40,7 +40,7 @@ jobs:
           draft: false
           prerelease: false
 
-      - name: Upload binaries to release
+      - name: Upload Windows amd64 binaries
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -48,4 +48,14 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./bin/mouse_mover-${{ steps.get_tag.outputs.tag }}.windows-amd64.exe
           asset_name: mouse_mover-${{ steps.get_tag.outputs.tag }}.windows-amd64.exe
+          asset_content_type: application/octet-stream
+
+      - name: Upload Linux amd64 binaries
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./bin/mouse_mover-${{ steps.get_tag.outputs.tag }}.linux-amd64
+          asset_name: mouse_mover-${{ steps.get_tag.outputs.tag }}.linux-amd64
           asset_content_type: application/octet-stream
