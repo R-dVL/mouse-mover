@@ -21,8 +21,11 @@ jobs:
       - name: Build Compiler
         run: docker build -t builder .
 
-      - name: Build Project
-        run: docker run --rm -v ./bin:/home/app/bin -e TAG=${{ steps.get_tag.outputs.tag }} -e CC=x86_64-w64-mingw32-gcc -e OS=windows -e ARCH=amd64 -e CGO=1 builder
+      - name: Build Windows amd64 Binaries
+        run: docker run --rm -v ./bin:/home/app/bin -e TAG=${{ steps.get_tag.outputs.tag }} -e CC=x86_64-w64-mingw32-gcc -e OS=windows -e ARCH=amd64 -e CGO_ENABLED=1 -e EXTENSION=.exe builder
+
+      - name: Build Linux amd64 Binaries
+        run: docker run --rm -v ./bin:/home/app/bin -e TAG=${{ steps.get_tag.outputs.tag }} -e CC=x86_64-pc-linux-gcc -e OS=linux -e ARCH=amd64 -e CGO_ENABLED=1 builder
 
       - name: Create release
         id: create_release

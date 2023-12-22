@@ -3,11 +3,12 @@ FROM ubuntu:latest
 WORKDIR /home/app
 
 # Build params
-ENV OS=windows
-ENV ARCH=amd64
-ENV TAG=0.0.0
-ENV CGO=0
-ENV CC= 
+ENV OS=
+ENV EXTENSION= 
+ENV ARCH=
+ENV TAG=
+ENV CGO_ENABLED=0
+ENV CC=
 
 RUN apt update -y && apt upgrade -y
 
@@ -41,4 +42,4 @@ COPY . .
 RUN go mod download && go mod verify
 
 # Compile Windowsx64 binaries
-CMD ["sh", "-c", "GOOS=$OS GOARCH=$ARCH CGO_ENABLED=$CGO CC=$CC go build -o ./bin/mouse_mover-$TAG.$OS-$ARCH.exe ./cmd/mouse_mover/main.go"]
+CMD ["sh", "-c", "GOOS=$OS GOARCH=$ARCH CGO_ENABLED=$CGO_ENABLED CC=$CC go build -o ./bin/mouse_mover-$TAG.$OS-${ARCH}${EXTENSION} ./cmd/mouse_mover/main.go"]
