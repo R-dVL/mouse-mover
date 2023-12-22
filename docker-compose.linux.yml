@@ -1,0 +1,13 @@
+version: '3'
+services:
+  builder:
+    build: .
+    volumes:
+      - ./bin:/home/app/bin
+    environment:
+      - TAG=0.0.0
+      - CC=x86_64-linux-gnu-gcc
+      - OS=linux
+      - ARCH=amd64
+      - CGO_ENABLED=1
+      - EXTENSION=.bin
