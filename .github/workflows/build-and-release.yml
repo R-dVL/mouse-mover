@@ -25,7 +25,7 @@ jobs:
         run: docker run --rm -v ./bin:/home/app/bin -e TAG=${{ steps.get_tag.outputs.tag }} -e CC=x86_64-w64-mingw32-gcc -e OS=windows -e ARCH=amd64 -e CGO_ENABLED=1 -e EXTENSION=.exe builder
 
       - name: Build Linux amd64 Binaries
-        run: docker run --rm -v ./bin:/home/app/bin -e TAG=${{ steps.get_tag.outputs.tag }} -e CC=gcc -e OS=linux -e ARCH=amd64 -e CGO_ENABLED=1 -e EXTENSION=.bin builder
+        run: docker run --rm -v ./bin:/home/app/bin -e TAG=${{ steps.get_tag.outputs.tag }} -e CC=x86_64-linux-gnu-gcc -e OS=linux -e ARCH=amd64 -e CGO_ENABLED=1 -e EXTENSION=.bin builder
 
       - name: Create release
         id: create_release
