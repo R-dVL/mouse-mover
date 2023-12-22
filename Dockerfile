@@ -13,14 +13,12 @@ ENV CC=
 RUN apt update -y && apt upgrade -y
 
 # Update ca-certificates
-RUN apt-get install -y ca-certificates && \
-    update-ca-certificates
-
-# Install golang
-RUN apt install -y golang-go
+RUN apt update -y && apt install -y ca-certificates && \
+        update-ca-certificates
 
 # Install dependencies
-RUN apt install -y \
+RUN apt update -y && apt install -y \
+        golang-go \
         gcc \
         libc6-dev \
         libx11-dev \
