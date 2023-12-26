@@ -8,7 +8,7 @@ You can put a spoon on your laptop's trackpad... or use this script to keep you 
 3. [Security issues](#Security%20issues)
 
 ## Usage
-This script will keep the computer active to prevent it from crashing or appearing as afk.
+This script will keep the computer active to prevent it from sleeping or appearing as afk.
 
 
 ### Modes
