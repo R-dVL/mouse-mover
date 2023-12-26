@@ -2,15 +2,16 @@ version: '3'
 
 services:
   builder:
+    container_name: stay-active-builder
     build:
       context: .
       dockerfile: ./Dockerfile
     volumes:
       - ./bin:/home/app/bin
     environment:
-      - TAG=1.0.0
-      - CC=x86_64-w64-mingw32-gcc
+      - TAG=local
+      - CC=x86_64-linux-gnu-gcc
       - OS=windows
       - ARCH=amd64
       - CGO_ENABLED=1
-      - EXTENSION=.exe
+      - EXTENSION=.bin
