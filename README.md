@@ -17,7 +17,7 @@ This executable is not signed, your device may not trust the origin. You can com
 Just git clone or download this repository and execute:
 
 ```bash
-docker compose -f .\docker-compose.[YOUR OS].amd64.yml up -d
+docker compose -f .\docker-compose.[YOUR OS].amd64.yml up
 ```
 
 It will build the Docker image and compile binaries that will be located in the bin folder created.

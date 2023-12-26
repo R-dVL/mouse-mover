@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"math/rand"
 	"os"
+	"os/exec"
+	"runtime"
 	"time"
 
 	"github.com/go-vgo/robotgo"
@@ -37,7 +39,25 @@ Choose your option:
 	return option
 }
 
-func work() {
+func ClearTerminal() {
+	var cmd *exec.Cmd
+
+	switch runtime.GOOS {
+	case "darwin":
+		cmd = exec.Command("clear")
+	case "linux":
+		cmd = exec.Command("clear")
+	case "windows":
+		cmd = exec.Command("cmd", "/c", "cls")
+	default:
+		cmd = exec.Command("clear")
+	}
+
+	cmd.Stdout = os.Stdout
+	cmd.Run()
+}
+
+func Work() {
 	for {
 		fmt.Println("Still here..")
 		robotgo.KeyTap("capslock")
@@ -46,10 +66,10 @@ func work() {
 	}
 }
 
-func gaming() {
+func Gaming() {
 	for {
 		// Generate random seed everytime
-		rand.Seed(time.Now().UnixNano())
+		rand := rand.New(rand.NewSource(time.Now().UnixNano()))
 		action := rand.Intn(4)
 
 		switch action {
@@ -88,21 +108,20 @@ func main() {
 		case 1:
 			fmt.Println("Work selected..")
 			time.Sleep(1 * time.Second)
-			fmt.Print("\033[H\033[2J")
-			work()
+			ClearTerminal()
+			Work()
 		case 2:
 			fmt.Println("Gaming selected..")
 			time.Sleep(1 * time.Second)
-			fmt.Print("\033[H\033[2J")
-			gaming()
+			ClearTerminal()
+			Gaming()
 		case 3:
 			fmt.Println("Exiting..")
-			time.Sleep(1 * time.Second)
 			os.Exit(0)
 		default:
 			fmt.Println("Not an option.")
 			time.Sleep(1 * time.Second)
-			fmt.Print("\033[H\033[2J")
+			ClearTerminal()
 		}
 	}
 }
