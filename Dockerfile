@@ -19,6 +19,7 @@ RUN apt update -y && apt install -y ca-certificates && \
 # Install dependencies
 RUN apt update -y && apt install -y \
         golang-go \
+        git \
         gcc \
         libc6-dev \
         libx11-dev \
@@ -40,4 +41,4 @@ COPY . .
 RUN go mod download && go mod verify
 
 # Compile Windowsx64 binaries
-CMD ["sh", "-c", "GOOS=$OS GOARCH=$ARCH CGO_ENABLED=$CGO_ENABLED CC=$CC go build -o ./bin/stay_active-$TAG.$OS-${ARCH}${EXTENSION} ./cmd/stay_active/main.go"]
+CMD ["sh", "-c", "GOOS=$OS GOARCH=$ARCH CGO_ENABLED=$CGO_ENABLED CC=$CC go build -o ./bin/stay_active-$TAG.$OS-${ARCH}${EXTENSION} ./cmd/stay_active/"]
