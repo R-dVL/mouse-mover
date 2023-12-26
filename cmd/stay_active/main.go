@@ -11,7 +11,7 @@ import (
 	"github.com/go-vgo/robotgo"
 )
 
-func menu() int {
+func Menu() int {
 	var option int
 
 	fmt.Print(`
@@ -102,7 +102,7 @@ func Gaming() {
 
 func main() {
 	for {
-		var option int = menu()
+		var option int = Menu()
 
 		switch option {
 		case 1:
