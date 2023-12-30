@@ -8,16 +8,23 @@ You can put a spoon on your laptop's trackpad... or use this script to keep you 
 3. [Security issues](#Security%20issues)
 
 ## Usage
-This script will keep the computer active to prevent it from sleeping or appearing as afk.
+This script will keep the computer active to prevent it from sleeping or appearing as afk, you will also have an option to schedule a computer shutdown.
 
 
 ### Modes
+There are different modes for different situations.
+
+
 #### Work
 The caps lock is pressed every minute so that the computer remains active without interrupting you, so that you can have a coffee.
 
 
 #### Gaming
 The W, S, 1 and 2 keys are pressed randomly so your character will do random things and the server will not kick you.
+
+
+#### Mouse mover
+Mouse will move once a minute.
 
 
 ## Download

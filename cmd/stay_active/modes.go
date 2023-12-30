@@ -9,6 +9,8 @@ import (
 )
 
 func Work() {
+	ClearTerminal()
+
 	for {
 		fmt.Println("Still here..")
 		robotgo.KeyTap("capslock")
@@ -18,7 +20,10 @@ func Work() {
 }
 
 func Gaming() {
+	ClearTerminal()
+
 	for {
+		// Generate seed and random number
 		rand := rand.New(rand.NewSource(time.Now().UnixNano()))
 		action := rand.Intn(4)
 
@@ -46,5 +51,19 @@ func Gaming() {
 		default:
 			fmt.Println("Not an option.")
 		}
+	}
+}
+
+func MouseMover() {
+	ClearTerminal()
+
+	for {
+		fmt.Println("Up..")
+		robotgo.MoveSmoothRelative(-100, -100, 1.0, 30.0)
+		robotgo.MilliSleep(60000)
+
+		fmt.Println("Down..")
+		robotgo.MoveSmoothRelative(100, 100, 1.0, 30.0)
+		robotgo.MilliSleep(60000)
 	}
 }

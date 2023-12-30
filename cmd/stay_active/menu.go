@@ -3,7 +3,7 @@ package main
 import "fmt"
 
 func Menu() int {
-	var option int
+	var mode int
 
 	fmt.Print(`
 ==============================================================
@@ -16,16 +16,17 @@ func Menu() int {
 ==============================================================
 
 -------------------
-Choose your option:
+Choose your mode:
 -------------------
 1. Work.
 2. Gaming.
-3. Exit.
+3. Mouse mover.
+4. Exit.
 -------------------
 
 `)
 
-	fmt.Scan(&option)
+	fmt.Scan(&mode)
 
-	return option
+	return mode
 }
