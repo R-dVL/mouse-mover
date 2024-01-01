@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  windows:
+    container_name: windows-builder
+    build:
+      context: .
+      args:
+        OS: windows
+    volumes:
+      - ./bin:/home/app/bin
+    environment:
+      - TAG=local
+      - EXT=exe
+
+  linux:
+    container_name: linux-builder
+    build:
+      context: .
+      args:
+        OS: linux
+    volumes:
+      - ./bin:/home/app/bin
+    environment:
+      - TAG=local
+      - EXT=bin
+
+  darwin:
+    container_name: darwin-builder
+    build:
+      context: .
+      args:
+        OS: darwin
+    volumes:
+      - ./bin:/home/app/bin
+    environment:
+      - TAG=local
+      - EXT=app

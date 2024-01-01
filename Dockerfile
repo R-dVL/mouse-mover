@@ -1,26 +1,14 @@
-FROM ubuntu:latest
+ARG OS
+
+FROM ghcr.io/r-dvl/golang-builder:${OS}
+
+ENV EXT=
+ENV TAG=
 
 WORKDIR /home/app
 
-# Build params
-ENV OS=
-ENV EXTENSION=
-ENV ARCH=
-ENV TAG=
-ENV CGO_ENABLED=0
-ENV CC=
-
-RUN apt update -y && apt upgrade -y
-
-# Update ca-certificates
-RUN apt update -y && apt install -y ca-certificates && \
-        update-ca-certificates
-
-# Install dependencies
+# Install Robotgo dependencies
 RUN apt update -y && apt install -y \
-        golang-go \
-        git \
-        gcc \
         libc6-dev \
         libx11-dev \
         xorg-dev \
@@ -33,12 +21,11 @@ RUN apt update -y && apt install -y \
         x11-xkb-utils \
         libx11-xcb-dev \
         libxkbcommon-x11-dev \
-        libxkbcommon-dev \
-        mingw-w64
+        libxkbcommon-dev
 
 COPY . .
 
 RUN go mod download && go mod verify
 
-# Compile Windowsx64 binaries
-CMD ["sh", "-c", "GOOS=$OS GOARCH=$ARCH CGO_ENABLED=$CGO_ENABLED CC=$CC go build -o ./bin/stay_active-$TAG.$OS-${ARCH}${EXTENSION} ./cmd/stay_active/"]
+# Compile binaries
+CMD ["sh", "-c", "go build -o ./bin/stay_active-${TAG}.${GOOS}-${GOARCH}.${EXT} ./cmd/stay_active/"]
