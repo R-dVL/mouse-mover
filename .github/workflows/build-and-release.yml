@@ -6,7 +6,8 @@ on:
       - '*'
 
 jobs:
-  Build-and-release:
+  build-and-release:
+    name: Build and release
     runs-on: ubuntu-latest
     permissions: write-all
 
@@ -18,14 +19,17 @@ jobs:
         id: get_tag
         run: echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
       
-      - name: Build Compiler
-        run: docker build -t builder .
+      - name: Build Windows Compiler
+        run: docker build --build-arg OS=windows -t windows-builder .
+
+      - name: Build Linux Compiler
+        run: docker build --build-arg OS=linux -t linux-builder .
 
       - name: Build Windows amd64 Binaries
-        run: docker run --rm -v ./bin:/home/app/bin -e TAG=${{ steps.get_tag.outputs.tag }} -e CC=x86_64-w64-mingw32-gcc -e OS=windows -e ARCH=amd64 -e CGO_ENABLED=1 -e EXTENSION=.exe builder
+        run: docker run --rm -v ./bin:/home/app/bin -e TAG=${{ steps.get_tag.outputs.tag }} -e EXT=exe windows-builder
 
       - name: Build Linux amd64 Binaries
-        run: docker run --rm -v ./bin:/home/app/bin -e TAG=${{ steps.get_tag.outputs.tag }} -e CC=x86_64-linux-gnu-gcc -e OS=linux -e ARCH=amd64 -e CGO_ENABLED=1 -e EXTENSION=.bin builder
+        run: docker run --rm -v ./bin:/home/app/bin -e TAG=${{ steps.get_tag.outputs.tag }} -e EXT=bin linux-builder
 
       - name: Create release
         id: create_release
