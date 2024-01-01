@@ -15,7 +15,7 @@ This script will keep the computer active to prevent it from sleeping or appeari
 There are different modes for different situations.
 
 
-#### Work
+#### Teams
 The caps lock is pressed every minute so that the computer remains active without interrupting you, so that you can have a coffee.
 
 
@@ -38,8 +38,8 @@ This executable is not signed, your device may not trust the source. You can com
 Just git clone or download this repository and run:
 
 ```bash
-docker compose -f .\docker-compose.[YOUR OS].amd64.yml up
+docker compose up
 ```
 
-It will build the Docker image and compile the binaries that will be placed in the created bin folder.
+It will build Docker images and compile the binaries that will be placed in the created bin folder.
 

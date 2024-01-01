@@ -18,7 +18,7 @@ func Menu() int {
 -------------------
 Choose your mode:
 -------------------
-1. Work.
+1. Teams.
 2. Gaming.
 3. Mouse mover.
 4. Exit.

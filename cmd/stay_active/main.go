@@ -12,10 +12,10 @@ func main() {
 
 		switch mode {
 		case 1:
-			fmt.Println("Work selected..")
+			fmt.Println("Teams selected..")
 			time.Sleep(1 * time.Second)
 			ShutdownScheduler()
-			Work()
+			Teams()
 
 		case 2:
 			fmt.Println("Gaming selected..")

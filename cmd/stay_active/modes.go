@@ -8,7 +8,7 @@ import (
 	"github.com/go-vgo/robotgo"
 )
 
-func Work() {
+func Teams() {
 	ClearTerminal()
 
 	for {
