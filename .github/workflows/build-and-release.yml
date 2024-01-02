@@ -29,13 +29,13 @@ jobs:
         run: docker build --build-arg OS=darwin -t darwin-builder .
 
       - name: Build Windows amd64 Binaries
-        run: docker run --rm -v ./bin:/home/app/bin -e TAG=${{ steps.get_tag.outputs.tag }} -e windows-builder
+        run: docker run --rm -v ./bin:/home/app/bin -e TAG=${{ steps.get_tag.outputs.tag }} windows-builder
 
       - name: Build Linux amd64 Binaries
-        run: docker run --rm -v ./bin:/home/app/bin -e TAG=${{ steps.get_tag.outputs.tag }} -e linux-builder
+        run: docker run --rm -v ./bin:/home/app/bin -e TAG=${{ steps.get_tag.outputs.tag }} linux-builder
 
       - name: Build Darwin amd64 Binaries
-        run: docker run --rm -v ./bin:/home/app/bin -e TAG=${{ steps.get_tag.outputs.tag }} -e darwin-builder
+        run: docker run --rm -v ./bin:/home/app/bin -e TAG=${{ steps.get_tag.outputs.tag }} darwin-builder
 
       - name: Create release
         id: create_release
