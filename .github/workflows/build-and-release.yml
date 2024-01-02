@@ -26,10 +26,10 @@ jobs:
         run: docker build --build-arg OS=linux -t linux-builder .
 
       - name: Build Windows amd64 Binaries
-        run: docker run --rm -v ./bin:/home/app/bin -e TAG=${{ steps.get_tag.outputs.tag }} -e EXT=exe windows-builder
+        run: docker run --rm -v ./bin:/home/app/bin -e TAG=${{ steps.get_tag.outputs.tag }} -e windows-builder
 
       - name: Build Linux amd64 Binaries
-        run: docker run --rm -v ./bin:/home/app/bin -e TAG=${{ steps.get_tag.outputs.tag }} -e EXT=bin linux-builder
+        run: docker run --rm -v ./bin:/home/app/bin -e TAG=${{ steps.get_tag.outputs.tag }} -e linux-builder
 
       - name: Create release
         id: create_release

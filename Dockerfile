@@ -2,7 +2,6 @@ ARG OS
 
 FROM ghcr.io/r-dvl/golang-builder:${OS}
 
-ENV EXT=
 ENV TAG=
 
 WORKDIR /home/app

@@ -11,7 +11,6 @@ services:
       - ./bin:/home/app/bin
     environment:
       - TAG=local
-      - EXT=exe
 
   linux:
     container_name: linux-builder
@@ -23,7 +22,6 @@ services:
       - ./bin:/home/app/bin
     environment:
       - TAG=local
-      - EXT=bin
 
   darwin:
     container_name: darwin-builder
@@ -35,4 +33,3 @@ services:
       - ./bin:/home/app/bin
     environment:
       - TAG=local
-      - EXT=app
