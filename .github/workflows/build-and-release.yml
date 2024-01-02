@@ -25,11 +25,17 @@ jobs:
       - name: Build Linux Compiler
         run: docker build --build-arg OS=linux -t linux-builder .
 
+      - name: Build Darwin Compiler
+        run: docker build --build-arg OS=darwin -t darwin-builder .
+
       - name: Build Windows amd64 Binaries
         run: docker run --rm -v ./bin:/home/app/bin -e TAG=${{ steps.get_tag.outputs.tag }} -e windows-builder
 
       - name: Build Linux amd64 Binaries
         run: docker run --rm -v ./bin:/home/app/bin -e TAG=${{ steps.get_tag.outputs.tag }} -e linux-builder
+
+      - name: Build Darwin amd64 Binaries
+        run: docker run --rm -v ./bin:/home/app/bin -e TAG=${{ steps.get_tag.outputs.tag }} -e darwin-builder
 
       - name: Create release
         id: create_release
@@ -62,4 +68,14 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./bin/stay_active-${{ steps.get_tag.outputs.tag }}.linux-amd64.bin
           asset_name: stay_active-${{ steps.get_tag.outputs.tag }}.linux-amd64.bin
+          asset_content_type: application/octet-stream
+
+      - name: Upload Darwin amd64 binaries
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./bin/stay_active-${{ steps.get_tag.outputs.tag }}.darwin-amd64.bin
+          asset_name: stay_active-${{ steps.get_tag.outputs.tag }}.darwin-amd64.bin
           asset_content_type: application/octet-stream
