@@ -77,5 +77,5 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./bin/stay_active-${{ steps.get_tag.outputs.tag }}.darwin-amd64.bin
-          asset_name: stay_active-${{ steps.get_tag.outputs.tag }}.darwin-amd64.bin
+          asset_name: stay_active-${{ steps.get_tag.outputs.tag }}.darwin-amd64.app
           asset_content_type: application/octet-stream
