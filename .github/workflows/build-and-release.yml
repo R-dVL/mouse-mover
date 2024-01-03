@@ -11,6 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     permissions: write-all
 
+    strategy:
+      matrix:
+        os: [windows, linux, darwin]
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -18,6 +22,20 @@ jobs:
       - name: Get tag
         id: get_tag
         run: echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+
+      - name: Build Compiler
+        run: docker build --build-arg OS=${{ matrix.os }} -t ${{ matrix.os }}-builder .
+
+      - name: Build amd64 Binaries
+        run: docker run --rm -v ./bin:/home/app/bin -e TAG=${{ steps.get_tag.outputs.tag }} ${{ matrix.os }}-builder
+
+      - name: Compress amd64 binaries
+        run: |
+          if [ "${{ matrix.os }}" == "windows" ]; then
+            sudo zip -r ./bin/stay_active-${{ steps.get_tag.outputs.tag }}.${{ matrix.os }}-amd64.zip ./bin/stay_active-${{ steps.get_tag.outputs.tag }}.${{ matrix.os }}-amd64.exe
+          else
+            sudo tar -czvf ./bin/stay_active-${{ steps.get_tag.outputs.tag }}.${{ matrix.os }}-amd64.tar.gz ./bin/stay_active-${{ steps.get_tag.outputs.tag }}.${{ matrix.os }}-amd64.bin
+          fi
 
       - name: Create release
         id: create_release
@@ -32,62 +50,12 @@ jobs:
           draft: false
           prerelease: false
 
-        # Windows Artifact
-      - name: Build Windows Compiler
-        run: docker build --build-arg OS=windows -t windows-builder .
-
-      - name: Build Windows amd64 Binaries
-        run: docker run --rm -v ./bin:/home/app/bin -e TAG=${{ steps.get_tag.outputs.tag }} windows-builder
-
-      - name: Compress Windows amd64 binaries
-        run: sudo zip -r ./bin/stay_active-${{ steps.get_tag.outputs.tag }}.windows-amd64.zip ./bin/stay_active-${{ steps.get_tag.outputs.tag }}.windows-amd64.exe
-
-      - name: Upload Windows amd64 binaries
+      - name: Upload amd64 binaries
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./bin/stay_active-${{ steps.get_tag.outputs.tag }}.windows-amd64.zip
-          asset_name: stay_active-${{ steps.get_tag.outputs.tag }}.windows-amd64.zip
-          asset_content_type: application/zip
-
-        # Linux Artifact
-      - name: Build Linux Compiler
-        run: docker build --build-arg OS=linux -t linux-builder .
-
-      - name: Build Linux amd64 Binaries
-        run: docker run --rm -v ./bin:/home/app/bin -e TAG=${{ steps.get_tag.outputs.tag }} linux-builder
-
-      - name: Compress Linux amd64 binaries
-        run: sudo tar -czvf ./bin/stay_active-${{ steps.get_tag.outputs.tag }}.linux-amd64.tar.gz ./bin/stay_active-${{ steps.get_tag.outputs.tag }}.linux-amd64.bin
-
-      - name: Upload Linux amd64 binaries
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./bin/stay_active-${{ steps.get_tag.outputs.tag }}.linux-amd64.tar.gz
-          asset_name: stay_active-${{ steps.get_tag.outputs.tag }}.linux-amd64.tar.gz
-          asset_content_type: application/gzip
-
-        # Darwin Artifact
-      - name: Build Darwin Compiler
-        run: docker build --build-arg OS=darwin -t darwin-builder .
-
-      - name: Build Darwin amd64 Binaries
-        run: docker run --rm -v ./bin:/home/app/bin -e TAG=${{ steps.get_tag.outputs.tag }} darwin-builder
-
-      - name: Compress Darwin amd64 binaries
-        run: sudo tar -czvf ./bin/stay_active-${{ steps.get_tag.outputs.tag }}.darwin-amd64.tar.gz ./bin/stay_active-${{ steps.get_tag.outputs.tag }}.darwin-amd64.app
-
-      - name: Upload Darwin amd64 binaries
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./bin/stay_active-${{ steps.get_tag.outputs.tag }}.darwin-amd64.tar.gz
-          asset_name: stay_active-${{ steps.get_tag.outputs.tag }}.darwin-amd64.tar.gz
-          asset_content_type: application/gzip
+          asset_path: ./bin/stay_active-${{ steps.get_tag.outputs.tag }}.${{ matrix.os }}-amd64.${{ matrix.os == 'windows' && 'zip' || 'tar.gz' }}
+          asset_name: stay_active-${{ steps.get_tag.outputs.tag }}.${{ matrix.os }}-amd64.${{ matrix.os == 'windows' && 'zip' || 'tar.gz' }}
+          asset_content_type: ${{ matrix.os == 'windows' && 'application/zip' || 'application/gzip' }}
