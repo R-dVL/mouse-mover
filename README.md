@@ -1,5 +1,5 @@
 # Stay active
-You can put a spoon on your laptop's trackpad... or use this script to keep you active.
+You can put a spoon on your laptop's trackpad... or use this script to stay active.
 
 
 ## Contents
