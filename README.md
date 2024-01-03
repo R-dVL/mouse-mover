@@ -31,8 +31,8 @@ Mouse will move once a minute.
 Just download the executable for your operating system at [releases](https://github.com/R-dVL/stay-active/releases).
 
 
-## Security issues
-This executable is not signed, your device may not trust the source. You can compile your own binaries with [this Dockerfile](https://github.com/R-dVL/stay-active/blob/main/Dockerfile), there are [docker compose](https://github.com/R-dVL/stay-active/blob/main/docker-compose.yml) examples to compile Windows and Linux amd64 binaries.
+## Compilation
+You can compile your own binaries with [this Dockerfile](https://github.com/R-dVL/stay-active/blob/main/Dockerfile), there is a [docker compose](https://github.com/R-dVL/stay-active/blob/main/docker-compose.yml) example to compile Windows, Linux and Darwin amd64 binaries.
 
 ### Compilation
 Just git clone or download this repository and run:
