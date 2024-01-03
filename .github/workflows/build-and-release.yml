@@ -40,7 +40,7 @@ jobs:
         run: docker run --rm -v ./bin:/home/app/bin -e TAG=${{ steps.get_tag.outputs.tag }} windows-builder
 
       - name: Change Windows artifact permissions
-        run: chmod 755 ./bin/stay_active-${{ steps.get_tag.outputs.tag }}.windows-amd64.exe
+        run: sudo chmod 755 ./bin/stay_active-${{ steps.get_tag.outputs.tag }}.windows-amd64.exe
 
       - name: Compress Windows amd64 binaries
         run: zip -r ./bin/stay_active-${{ steps.get_tag.outputs.tag }}.windows-amd64.zip ./bin/stay_active-${{ steps.get_tag.outputs.tag }}.windows-amd64.exe
@@ -63,7 +63,7 @@ jobs:
         run: docker run --rm -v ./bin:/home/app/bin -e TAG=${{ steps.get_tag.outputs.tag }} linux-builder
 
       - name: Change Linux artifact permissions
-        run: chmod 755 ./bin/stay_active-${{ steps.get_tag.outputs.tag }}.linux-amd64.exe
+        run: sudo chmod 755 ./bin/stay_active-${{ steps.get_tag.outputs.tag }}.linux-amd64.exe
 
       - name: Compress Linux amd64 binaries
         run: tar -czvf ./bin/stay_active-${{ steps.get_tag.outputs.tag }}.linux-amd64.tar.gz ./bin/stay_active-${{ steps.get_tag.outputs.tag }}.linux-amd64.bin
@@ -86,7 +86,7 @@ jobs:
         run: docker run --rm -v ./bin:/home/app/bin -e TAG=${{ steps.get_tag.outputs.tag }} darwin-builder
 
       - name: Change Darwin artifact permissions
-        run: chmod 755 ./bin/stay_active-${{ steps.get_tag.outputs.tag }}.darwin-amd64.exe
+        run: sudo chmod 755 ./bin/stay_active-${{ steps.get_tag.outputs.tag }}.darwin-amd64.exe
 
       - name: Compress Darwin amd64 binaries
         run: tar -czvf ./bin/stay_active-${{ steps.get_tag.outputs.tag }}.darwin-amd64.tar.gz ./bin/stay_active-${{ steps.get_tag.outputs.tag }}.darwin-amd64.app
