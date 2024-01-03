@@ -6,14 +6,10 @@ on:
       - '*'
 
 jobs:
-  build-and-release:
-    name: Build and release
+  create-release:
+    name: Create release
     runs-on: ubuntu-latest
     permissions: write-all
-
-    strategy:
-      matrix:
-        os: [windows, linux, darwin]
 
     steps:
       - name: Checkout code
@@ -36,6 +32,24 @@ jobs:
           draft: false
           prerelease: false
 
+  build-and-upload:
+    name: Build and upload
+    needs: create-release
+    runs-on: ubuntu-latest
+    permissions: write-all
+
+    strategy:
+      matrix:
+        os: [windows, linux, darwin]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Get tag
+        id: get_tag
+        run: echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+
       - name: Build Compiler
         run: docker build --build-arg OS=${{ matrix.os }} -t ${{ matrix.os }}-builder .
 
@@ -55,7 +69,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          upload_url: ${{ needs.create-release.outputs.upload_url }}
           asset_path: ./bin/stay_active-${{ steps.get_tag.outputs.tag }}.${{ matrix.os }}-amd64.${{ matrix.os == 'windows' && 'zip' || 'tar.gz' }}
           asset_name: stay_active-${{ steps.get_tag.outputs.tag }}.${{ matrix.os }}-amd64.${{ matrix.os == 'windows' && 'zip' || 'tar.gz' }}
           asset_content_type: ${{ matrix.os == 'windows' && 'application/zip' || 'application/gzip' }}
