@@ -39,11 +39,8 @@ jobs:
       - name: Build Windows amd64 Binaries
         run: docker run --rm -v ./bin:/home/app/bin -e TAG=${{ steps.get_tag.outputs.tag }} windows-builder
 
-      - name: Change Windows artifact permissions
-        run: sudo chmod 755 ./bin/stay_active-${{ steps.get_tag.outputs.tag }}.windows-amd64.exe
-
       - name: Compress Windows amd64 binaries
-        run: zip -r ./bin/stay_active-${{ steps.get_tag.outputs.tag }}.windows-amd64.zip ./bin/stay_active-${{ steps.get_tag.outputs.tag }}.windows-amd64.exe
+        run: sudo zip -r ./bin/stay_active-${{ steps.get_tag.outputs.tag }}.windows-amd64.zip ./bin/stay_active-${{ steps.get_tag.outputs.tag }}.windows-amd64.exe
 
       - name: Upload Windows amd64 binaries
         uses: actions/upload-release-asset@v1
@@ -62,11 +59,8 @@ jobs:
       - name: Build Linux amd64 Binaries
         run: docker run --rm -v ./bin:/home/app/bin -e TAG=${{ steps.get_tag.outputs.tag }} linux-builder
 
-      - name: Change Linux artifact permissions
-        run: sudo chmod 755 ./bin/stay_active-${{ steps.get_tag.outputs.tag }}.linux-amd64.exe
-
       - name: Compress Linux amd64 binaries
-        run: tar -czvf ./bin/stay_active-${{ steps.get_tag.outputs.tag }}.linux-amd64.tar.gz ./bin/stay_active-${{ steps.get_tag.outputs.tag }}.linux-amd64.bin
+        run: sudo tar -czvf ./bin/stay_active-${{ steps.get_tag.outputs.tag }}.linux-amd64.tar.gz ./bin/stay_active-${{ steps.get_tag.outputs.tag }}.linux-amd64.bin
 
       - name: Upload Linux amd64 binaries
         uses: actions/upload-release-asset@v1
@@ -85,11 +79,8 @@ jobs:
       - name: Build Darwin amd64 Binaries
         run: docker run --rm -v ./bin:/home/app/bin -e TAG=${{ steps.get_tag.outputs.tag }} darwin-builder
 
-      - name: Change Darwin artifact permissions
-        run: sudo chmod 755 ./bin/stay_active-${{ steps.get_tag.outputs.tag }}.darwin-amd64.exe
-
       - name: Compress Darwin amd64 binaries
-        run: tar -czvf ./bin/stay_active-${{ steps.get_tag.outputs.tag }}.darwin-amd64.tar.gz ./bin/stay_active-${{ steps.get_tag.outputs.tag }}.darwin-amd64.app
+        run: sudo tar -czvf ./bin/stay_active-${{ steps.get_tag.outputs.tag }}.darwin-amd64.tar.gz ./bin/stay_active-${{ steps.get_tag.outputs.tag }}.darwin-amd64.app
 
       - name: Upload Darwin amd64 binaries
         uses: actions/upload-release-asset@v1
