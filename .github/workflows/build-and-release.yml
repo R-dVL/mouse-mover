@@ -23,6 +23,19 @@ jobs:
         id: get_tag
         run: echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
 
+      - name: Create release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.get_tag.outputs.tag }}
+          release_name: ${{ steps.get_tag.outputs.tag }}
+          body: |
+            Release ${{ steps.get_tag.outputs.tag }}
+          draft: false
+          prerelease: false
+
       - name: Build Compiler
         run: docker build --build-arg OS=${{ matrix.os }} -t ${{ matrix.os }}-builder .
 
@@ -36,19 +49,6 @@ jobs:
           else
             sudo tar -czvf ./bin/stay_active-${{ steps.get_tag.outputs.tag }}.${{ matrix.os }}-amd64.tar.gz ./bin/stay_active-${{ steps.get_tag.outputs.tag }}.${{ matrix.os }}-amd64.bin
           fi
-
-      - name: Create release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ steps.get_tag.outputs.tag }}
-          release_name: ${{ steps.get_tag.outputs.tag }}
-          body: |
-            Release ${{ steps.get_tag.outputs.tag }}
-          draft: false
-          prerelease: false
 
       - name: Upload amd64 binaries
         uses: actions/upload-release-asset@v1
