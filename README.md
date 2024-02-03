@@ -1,11 +1,11 @@
 # Stay active
-You can put a spoon on your laptop's trackpad... or use this script to keep you active.
+You can put a spoon on your laptop's trackpad... or use this script to stay active.
 
 
 ## Contents
 1. [Usage](#Usage)
 2. [Download](#Download)
-3. [Security issues](#Security%20issues)
+3. [Compilation](#Compilation)
 
 ## Usage
 This script will keep the computer active to prevent it from sleeping or appearing as afk, you will also have an option to schedule a computer shutdown.
