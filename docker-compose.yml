@@ -1,35 +1,14 @@
 version: '3'
 
 services:
-  windows:
-    container_name: windows-builder
+  builder:
+    container_name: stay-active-builder
     build:
       context: .
       args:
         OS: windows
+        ARCH: amd64
     volumes:
       - ./bin:/home/app/bin
     environment:
-      - TAG=local
-
-  linux:
-    container_name: linux-builder
-    build:
-      context: .
-      args:
-        OS: linux
-    volumes:
-      - ./bin:/home/app/bin
-    environment:
-      - TAG=local
-
-  darwin:
-    container_name: darwin-builder
-    build:
-      context: .
-      args:
-        OS: darwin
-    volumes:
-      - ./bin:/home/app/bin
-    environment:
-      - TAG=local
+      - TAG=example
