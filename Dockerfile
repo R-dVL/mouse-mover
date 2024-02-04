@@ -3,7 +3,8 @@ ARG ARCH
 
 FROM ghcr.io/r-dvl/golang-builder:${OS}-${ARCH}
 
-ENV TAG=
+ENV PROJECT_NAME=stay-active
+ENV VERSION=x.x.x
 
 WORKDIR /home/app
 
@@ -27,5 +28,7 @@ COPY . .
 
 RUN go mod download && go mod verify
 
+RUN mkdir -p ./bin/${PROJECT_NAME}-${VERSION}.${GOOS}-${GOARCH}
+
 # Compile binaries
-CMD ["sh", "-c", "go build -o ./bin/stay_active-${TAG}.${GOOS}-${GOARCH}${EXT} ./cmd/stay_active/"]
+CMD ["sh", "-c", "go build -o ./bin/${PROJECT_NAME}-${VERSION}.${GOOS}-${GOARCH}/${PROJECT_NAME}${EXT}"]
