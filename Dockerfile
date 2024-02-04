@@ -31,4 +31,4 @@ RUN go mod download && go mod verify
 RUN mkdir -p ./bin/${PROJECT_NAME}-${VERSION}.${GOOS}-${GOARCH}
 
 # Compile binaries
-CMD ["sh", "-c", "go build -o ./bin/${PROJECT_NAME}-${VERSION}.${GOOS}-${GOARCH}/${PROJECT_NAME}${EXT}"]
+CMD ["sh", "-c", "go build -o ./bin/${PROJECT_NAME}-${VERSION}.${GOOS}-${GOARCH}/${PROJECT_NAME}${EXT} ./cmd/stay_active/"]
